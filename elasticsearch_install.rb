@@ -16,11 +16,9 @@ def install_pleaserun
   sudo("gem2.0 install pleaserun")
 end
 
-@is_master = Emr::JsonInfoFile.new('instance')['isMaster'].to_s == 'true'
-@cluster_name = Emr::JsonInfoFile.new('job-flow')['jobFlowId'].to_s
-sudo("cp /mnt/var/lib/instance-controller/extraInstanceData.json" +
-     " /mnt/var/lib/info/extraInstanceData.json")
-@region = Emr::JsonInfoFile.new('extraInstanceData')['region'].to_s
+@is_master = 'true'=='true'
+@cluster_name = 'seyed cluster'
+@region = 'us-west-2'
 @target_dir = "/home/hadoop/elasticsearch/"
 @run_dir = "/home/hadoop/elasticsearch/"
 # this is where additional logs are sent in case terminal output needs to be caught
@@ -48,7 +46,7 @@ def load_aws_keys
 end
 
 def install_elasticsearch(target_dir, run_dir, log_dir, elasticsearch_version)
-  access_key, secret_key = load_aws_keys()
+  #access_key, secret_key = load_aws_keys()
   tarball = "elasticsearch-#{elasticsearch_version}.tar.gz"
   run "wget https://download.elasticsearch.org/elasticsearch/elasticsearch/#{tarball} --no-check-certificate"
   # extract to the target directory
@@ -97,7 +95,7 @@ end
 
 install_pleaserun
 install_elasticsearch(@target_dir, @run_dir, @log_dir, @elasticsearch_version)
-install_hadoop_plugin(@target_dir, @run_dir)
+#install_hadoop_plugin(@target_dir, @run_dir)
 
 sudo("service elasticsearch start")
 

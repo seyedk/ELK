@@ -12,7 +12,7 @@ def sudo(cmd)
   run("sudo #{cmd}")
 end
 
-@is_master = Emr::JsonInfoFile.new('instance')['isMaster'].to_s == 'true'
+@is_master = 'true'== 'true'
 @target_dir = "/home/hadoop/logstash/"
 @run_dir = "/home/hadoop/logstash/"
 @log_dir = "/home/hadoop/logstash/"
